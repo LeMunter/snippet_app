@@ -64,8 +64,13 @@ export class SnippetController {
    * @param {Function} next - Express next middleware function.
    */
   async new (req, res, next) {
+    console.log('new')
     try {
-      console.log('new')
+      const viewData = {
+        nameValue: undefined,
+        codeValue: undefined
+      }
+      res.render('snippets/new', { viewData })
     } catch (error) {
       next(error)
     }
@@ -79,7 +84,24 @@ export class SnippetController {
    * @param {Function} next - Express next middleware function.
    */
   async create (req, res) {
-    console.log('create')
+    try {
+      const snippet = new Snippet({
+        name: req.body.nameValue,
+        author: req.session.auth,
+        code: req.body.codeValue
+      })
+      await snippet.save()
+
+      // ...and redirect and show a message.
+      req.session.flash = { type: 'success', text: 'The snippet was saved successfully.' }
+      res.redirect('.')
+    } catch (error) {
+      // If an error, or validation error, occurred, view the form and an error message.
+      res.render('snippets/new', {
+        validationErrors: [error.message] || [error.errors.value.message],
+        value: req.body.value
+      })
+    }
   }
 
   /**
