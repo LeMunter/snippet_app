@@ -10,6 +10,6 @@
 {{#if isOwner}}
 <form method="get">
   <input formaction="./{{viewData._id}}/edit" type="submit" class="btn btn-outline-warning my-2 my-sm-0" name="{{viewData._id}}" value="Edit" />
-  <input formaction="./{{viewData._id}}/delete" type="submit" class="btn btn-outline-danger my-2 my-sm-0" name="{{viewData._id}}" value="Delete"/>
+  <input formaction="./{{viewData._id}}/confirm" type="submit" class="btn btn-outline-danger my-2 my-sm-0" name="{{viewData._id}}" value="Delete"/>
 </form>
 {{/if}}

@@ -112,12 +112,6 @@ export class SnippetController {
     } catch (error) {
       next(error)
     }
-    // const result = await Snippet.updateOne({ username: 'anton12' }, {
-    //   $push: { snippets: '602e939d912f257020979851' }
-    // })
-
-    // const user = await User.findOne({ username: 'anton12' })
-    // console.log(result.nModified === 1)
   }
 
   /**
@@ -161,8 +155,14 @@ export class SnippetController {
    * @param {object} res - Express response object.
    * @param {Function} next - Express next middleware function.
    */
-  async remove (req, res, next) {
-    console.log('remove')
+  async confirm (req, res, next) {
+    try {
+      const viewData = await (await Snippet.findOne({ _id: req.params.id }).orFail()).toObject()
+
+      res.render('snippets/confirm', { viewData })
+    } catch (error) {
+      next(error)
+    }
   }
 
   /**
@@ -172,7 +172,14 @@ export class SnippetController {
    * @param {object} res - Express response object.
    * @param {Function} next - Express next middleware function.
    */
-  async delete (req, res, next) {
-    console.log('delete')
+  async delete (req, res) {
+    try {
+      await Snippet.deleteOne({ _id: req.params.id })
+
+      req.session.flash = { type: 'success', text: 'The snippet was successfully deleted.' }
+      res.redirect('..')
+    } catch (error) {
+      res.redirect('..')
+    }
   }
 }

@@ -1,0 +1,7 @@
+<h2><span class="fa fa-cog"></span>Are you sure you want to delete {{viewData.name}}?</h2>
+<form method="get">
+  <input formaction=".." type="submit" class="btn btn-warning my-2 my-sm-0" value="Cancel" />
+</form>
+<form method="post">
+  <input formaction="./delete" type="submit" class="btn btn-danger my-2 my-sm-0" name="{{viewData._id}}" value="Delete"/>
+</form>
