@@ -15,7 +15,6 @@ import { fileURLToPath } from 'url'
 import { router } from './routes/router.js'
 import session from 'express-session'
 import helmet from 'helmet'
-import { authorize } from './config/authorizer.js'
 
 /**
  * The main function of the application.
@@ -96,8 +95,6 @@ const main = async () => {
 
     next()
   })
-
-  //   app.use((req, res, next) => authorize(req, res, next))
 
   // Register routes.
   app.use('/', router)

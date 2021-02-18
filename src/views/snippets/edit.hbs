@@ -1,0 +1,12 @@
+<h1>
+  <span class="far fa-plus-square"></span> Edit Snippet
+</h1>
+
+<form method="post" action="./update">
+  {{>validationSummary}}
+  <div class="form-group">
+    <input type="string" class="form-control" name="nameValue"  placeholder="Snippet name" required="required" autofocus="autofocus" value="{{viewData.name}}">
+    <textarea rows="10" class="form-control" cols="60" name="codeValue" placeholder="Enter text"placeholder="Write snippet">{{viewData.code}}</textarea>
+  </div>
+  <button type="submit" class="btn btn-lg btn-primary">Update snippet</button>
+</form>

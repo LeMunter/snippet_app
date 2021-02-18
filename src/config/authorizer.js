@@ -10,7 +10,7 @@ import { User } from '../models/user.js'
  * @param {Function} next - Express next middleware function.
  */
 export const authorize = async (req, res, next) => {
-  if (!req.session) {
+  if (!req.session.loggedIn) {
     return next(createError(404))
   }
 

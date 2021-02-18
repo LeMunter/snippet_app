@@ -5,8 +5,8 @@
 <form method="post" action="./create">
   {{>validationSummary}}
   <div class="form-group">
-    <input type="string" class="form-control" name="nameValue" nameValue="{{nameValue}}" placeholder="Snippet name" required="required" autofocus="autofocus" />
-    <input type="string" class="form-control" name="codeValue" codeValue="{{codeValue}}" placeholder="Write snippet" required="required" autofocus="autofocus" />
+    <input type="string" class="form-control" name="nameValue"  placeholder="Snippet name" required="required" autofocus="autofocus" />
+    <textarea rows="10" class="form-control" cols="60" name="codeValue" placeholder="Enter text"placeholder="Write snippet"></textarea>
   </div>
   <button type="submit" class="btn btn-lg btn-primary">Create new snippet</button>
 </form>

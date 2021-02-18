@@ -16,13 +16,6 @@ export class SnippetController {
    * @param {Function} next - Express next middleware function.
    */
   async index (req, res, next) {
-    // const snippet = new Snippet({
-    //   name: 'antons12',
-    //   author: '602e93421ef41c55b8587a95',
-    //   code: 'massakod'
-    // })
-    // await snippet.save()
-
     try {
       const viewData = {
         snippets: (await Snippet.find({}))
@@ -49,7 +42,7 @@ export class SnippetController {
    */
   async show (req, res, next) {
     try {
-      const viewData = await Snippet.findOne({ _id: req.params.id }).lean()
+      const viewData = await (await Snippet.findOne({ _id: req.params.id })).toObject()
       res.render('snippets/show', { viewData })
     } catch (error) {
       next(error)
@@ -64,7 +57,6 @@ export class SnippetController {
    * @param {Function} next - Express next middleware function.
    */
   async new (req, res, next) {
-    console.log('new')
     try {
       const viewData = {
         nameValue: undefined,
@@ -112,7 +104,19 @@ export class SnippetController {
    * @param {Function} next - Express next middleware function.
    */
   async edit (req, res, next) {
-    console.log('edit')
+    console.log(req.params.id)
+    try {
+      const viewData = await (await Snippet.findOne({ _id: req.params.id })).toObject()
+      res.render('snippets/edit', { viewData })
+    } catch (error) {
+      next(error)
+    }
+    // const result = await Snippet.updateOne({ username: 'anton12' }, {
+    //   $push: { snippets: '602e939d912f257020979851' }
+    // })
+
+    // const user = await User.findOne({ username: 'anton12' })
+    // console.log(result.nModified === 1)
   }
 
   /**
@@ -122,8 +126,29 @@ export class SnippetController {
    * @param {object} res - Express response object.
    * @param {Function} next - Express next middleware function.
    */
-  async update (req, res, next) {
-    console.log('update')
+  async update (req, res) {
+    try {
+      const result = await Snippet.updateOne({ _id: req.params.id }, {
+        name: req.body.nameValue,
+        code: req.body.codeValue
+      })
+      if (result.nModified === 1) {
+        req.session.flash = { type: 'success', text: 'The snippet was updated successfully.' }
+      } else {
+        req.session.flash = {
+          type: 'danger',
+          text: 'The snippet was not updated.'
+        }
+      }
+
+      res.redirect('..')
+    } catch (error) {
+      // If an error, or validation error, occurred, view the form and an error message.
+      res.render('snippets/new', {
+        validationErrors: [error.message] || [error.errors.value.message],
+        value: req.body.value
+      })
+    }
   }
 
   /**
