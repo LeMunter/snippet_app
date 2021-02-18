@@ -5,7 +5,8 @@ const schema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
-    minlength: 1
+    minlength: [3, 'The name must contain at least 3 characters.'],
+    maxlength: [40, 'The name must not contain more than least 25 characters.']
   },
   author: {
     type: String,
@@ -17,7 +18,7 @@ const schema = new mongoose.Schema({
     type: String,
     required: true,
     trim: false,
-    minlength: 1
+    maxlength: [500, 'The snippet must not contain more than least 1000 characters.']
   }
 }, {
   timestamps: true

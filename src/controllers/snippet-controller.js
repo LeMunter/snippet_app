@@ -42,7 +42,7 @@ export class SnippetController {
    */
   async show (req, res, next) {
     try {
-      const viewData = await (await Snippet.findOne({ _id: req.params.id })).toObject()
+      const viewData = await (await Snippet.findOne({ _id: req.params.id }).orFail()).toObject()
       res.render('snippets/show', { viewData })
     } catch (error) {
       next(error)
@@ -106,7 +106,8 @@ export class SnippetController {
   async edit (req, res, next) {
     console.log(req.params.id)
     try {
-      const viewData = await (await Snippet.findOne({ _id: req.params.id })).toObject()
+      const viewData = await (await Snippet.findOne({ _id: req.params.id }).orFail()).toObject()
+
       res.render('snippets/edit', { viewData })
     } catch (error) {
       next(error)
@@ -131,22 +132,24 @@ export class SnippetController {
       const result = await Snippet.updateOne({ _id: req.params.id }, {
         name: req.body.nameValue,
         code: req.body.codeValue
-      })
+      }, { runValidators: true }
+      )
+
       if (result.nModified === 1) {
         req.session.flash = { type: 'success', text: 'The snippet was updated successfully.' }
       } else {
-        req.session.flash = {
-          type: 'danger',
-          text: 'The snippet was not updated.'
-        }
+        req.session.flash = { type: 'danger', text: 'The snippet was not updated.' }
       }
 
       res.redirect('..')
     } catch (error) {
       // If an error, or validation error, occurred, view the form and an error message.
-      res.render('snippets/new', {
+      res.render('snippets/edit', {
         validationErrors: [error.message] || [error.errors.value.message],
-        value: req.body.value
+        viewData: {
+          name: req.body.nameValue,
+          code: req.body.codeValue
+        }
       })
     }
   }

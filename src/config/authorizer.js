@@ -1,6 +1,5 @@
 import createError from 'http-errors'
 import { Snippet } from '../models/snippet.js'
-import { User } from '../models/user.js'
 
 /**
  *
@@ -12,6 +11,23 @@ import { User } from '../models/user.js'
 export const authorize = async (req, res, next) => {
   if (!req.session.loggedIn) {
     return next(createError(404))
+  }
+
+  next()
+}
+
+/**
+ *
+ *
+ * @param {object} req - Express request object.
+ * @param {object} res - Express response object.
+ * @param {Function} next - Express next middleware function.
+ */
+export const authorizeOwner = async (req, res, next) => {
+  const snippet = await Snippet.findOne({ _id: req.params.id }).lean()
+  if (snippet.author !== req.session.auth) {
+    console.log('fast')
+    return next(createError(403))
   }
 
   next()
