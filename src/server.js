@@ -98,7 +98,7 @@ const main = async () => {
     next()
   })
 
-  app.use((req, res, next) => authorize(req, res, next))
+  //   app.use((req, res, next) => authorize(req, res, next))
 
   // Register routes.
   app.use('/', router)

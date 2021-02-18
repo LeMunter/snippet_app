@@ -5,6 +5,7 @@
  * @version 1.0.0
  */
 
+import { authorize } from '../config/authorizer.js'
 import express from 'express'
 import { UserController } from '../controllers/user-controller.js'
 
@@ -16,4 +17,7 @@ router.get('/register', (req, res, next) => controller.register(req, res, next))
 router.post('/register', (req, res, next) => controller.createUser(req, res, next))
 router.get('/login', (req, res, next) => controller.login(req, res, next))
 router.post('/login', (req, res, next) => controller.loginPost(req, res, next))
-router.post('/logout', (req, res, next) => controller.logoutPost(req, res, next))
+router.post('/logout', (req, res, next) =>
+  authorize(req, res, next),
+(req, res, next) => controller.logoutPost(req, res, next)
+)
