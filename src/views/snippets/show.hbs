@@ -1,0 +1,15 @@
+<h1>
+  <span class="fa fa-cog"></span> Snippet</h1>
+
+<dl class="row">
+  <dt class="col-sm-2">Name</dt>
+  <dd class="col-sm-10">{{viewData.name}}</dd>
+
+  <dt class="col-sm-2">Code</dt>
+  <dd class="col-sm-10">{{viewData.code}}</dd>
+</dl>
+{{#if isOwner}}
+<form method="get" action="{{viewData.name}}/delete">
+  <button type="submit" class="btn btn-lg btn-danger" value="{{viewData.name}}">Delete</button>
+</form>
+{{/if}}

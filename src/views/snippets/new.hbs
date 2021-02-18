@@ -1,0 +1,12 @@
+<h1>
+  <span class="far fa-plus-square"></span> New Snippet
+</h1>
+
+<form method="post" action="./create">
+  {{>validationSummary}}
+  <div class="form-group">
+    <input type="string" class="form-control" name="nameValue" nameValue="{{nameValue}}" placeholder="Snippet name" required="required" autofocus="autofocus" />
+    <input type="string" class="form-control" name="codeValue" codeValue="{{codeValue}}" placeholder="Write snippet" required="required" autofocus="autofocus" />
+  </div>
+  <button type="submit" class="btn btn-lg btn-primary">Create new snippet</button>
+</form>

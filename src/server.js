@@ -81,7 +81,6 @@ const main = async () => {
 
   // Middleware to be executed before the routes.
   app.use((req, res, next) => {
-    // Pass the base URL to the views.
     res.locals.isLoggedIn = req.session.loggedIn
 
     next()

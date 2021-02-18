@@ -14,7 +14,23 @@ export class UserController {
    * @param {Function} next - Express next middleware function.
    */
   async register (req, res, next) {
-    console.log('register')
+  //   const user = new User({
+  //     username: 'anton12',
+  //     password: 'abcdefghijk',
+  //     snippets: []
+  //   })
+  //   await user.save()
+
+    //   console.log(user)
+
+    // const result = await User.updateOne({ username: 'anton12' }, {
+    //   $push: { snippets: '602e939d912f257020979851' }
+    // })
+
+    // const user = await User.findOne({ username: 'anton12' })
+    // console.log(result.nModified === 1)
+    // console.log(user)
+
     try {
       res.render('users/registration')
     } catch (error) {
@@ -78,7 +94,7 @@ export class UserController {
     try {
       const user = await User.authenticate(req.body.userName, req.body.password)
       req.session.regenerate(() => {
-        req.session.auth = user.username
+        req.session.auth = user._id
         req.session.loggedIn = true
         req.session.flash = { type: 'success', text: 'Login was successful.' }
         res.redirect('/')

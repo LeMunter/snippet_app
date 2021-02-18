@@ -7,6 +7,12 @@ const schema = new mongoose.Schema({
     trim: true,
     minlength: 1
   },
+  author: {
+    type: String,
+    required: true,
+    trim: true,
+    minlength: 1
+  },
   code: {
     type: String,
     required: true,

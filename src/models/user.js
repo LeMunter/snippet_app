@@ -14,9 +14,7 @@ const schema = new mongoose.Schema({
     required: true,
     minlength: [10, 'The password must contain at least 10 characters.']
   },
-  snippets: {
-    type: [String]
-  }
+  snippets: [String]
 }, {
   timestamps: true,
   versionKey: false
