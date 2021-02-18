@@ -77,7 +77,7 @@ export class UserController {
   async loginPost (req, res) {
     try {
       const user = await User.authenticate(req.body.userName, req.body.password)
-      await req.session.regenerate(() => {
+      req.session.regenerate(() => {
         req.session.auth = user.username
         req.session.loggedIn = true
         req.session.flash = { type: 'success', text: 'Login was successful.' }
@@ -86,6 +86,26 @@ export class UserController {
     } catch (error) {
       // If an error, or validation error, occurred, view the form and an error message.
       res.render('users/login', {
+        validationErrors: [error.message] || [error.errors.value.message],
+        value: req.body.value
+      })
+    }
+  }
+
+  /**
+   * Logout.
+   *
+   * @param {object} req - Express request object.
+   * @param {object} res - Express response object.
+   */
+  async logoutPost (req, res) {
+    try {
+      req.session.destroy(() => {
+        res.redirect('/')
+      })
+    } catch (error) {
+      // If an error, or validation error, occurred, view the form and an error message.
+      res.render('/', {
         validationErrors: [error.message] || [error.errors.value.message],
         value: req.body.value
       })
