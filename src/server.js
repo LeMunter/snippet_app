@@ -61,8 +61,8 @@ const main = async () => {
 
   // Setup and use session middleware (https://github.com/expressjs/session).
   const sessionOptions = {
-    name: process.env.SESSION_NAME, // Don't use default session cookie name.
-    secret: process.env.SESSION_SECRET, // Change it!!! The secret is used to hash the session with HMAC.
+    name: process.env.SESSION_NAME,
+    secret: process.env.SESSION_SECRET,
     resave: false, // Resave even if a request is not changing the session.
     saveUninitialized: false, // Don't save a created but not modified session.
     cookie: {

@@ -27,12 +27,10 @@ export class UserController {
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
-   * @param {Function} next - Express next middleware function.
    */
   async createUser (req, res) {
     try {
       const { userName, password, confirmPassword } = req.body
-      console.log(password + ' ' + confirmPassword)
 
       await User.matchingPasswords(password, confirmPassword)
       await User.checkDuplicate(userName)
@@ -56,18 +54,41 @@ export class UserController {
   }
 
   /**
-   * Creates a new user.
+   * Displays login form.
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
    * @param {Function} next - Express next middleware function.
    */
   async login (req, res, next) {
-    console.log('register')
     try {
       res.render('users/login')
     } catch (error) {
       next(error)
+    }
+  }
+
+  /**
+   * Authenticates a user.
+   *
+   * @param {object} req - Express request object.
+   * @param {object} res - Express response object.
+   */
+  async loginPost (req, res) {
+    try {
+      const user = await User.authenticate(req.body.userName, req.body.password)
+      await req.session.regenerate(() => {
+        req.session.auth = user.username
+        req.session.loggedIn = true
+        req.session.flash = { type: 'success', text: 'Login was successful.' }
+        res.redirect('/')
+      })
+    } catch (error) {
+      // If an error, or validation error, occurred, view the form and an error message.
+      res.render('users/login', {
+        validationErrors: [error.message] || [error.errors.value.message],
+        value: req.body.value
+      })
     }
   }
 }
