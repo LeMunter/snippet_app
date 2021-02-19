@@ -1,5 +1,7 @@
 import { User } from '../models/user.js'
+import { Snippet } from '../models/snippet.js'
 import bcrypt from 'bcrypt'
+import moment from 'moment'
 
 /**
  * User controller.
@@ -129,6 +131,31 @@ export class UserController {
         validationErrors: [error.message] || [error.errors.value.message],
         value: req.body.value
       })
+    }
+  }
+
+  /**
+   * Display all snippets for a single user.
+   *
+   * @param {object} req - Express request object.
+   * @param {object} res - Express response object.
+   * @param {Function} next - Express next middleware function.
+   */
+  async mySnippets (req, res, next) {
+    try {
+      const viewData = {
+        snippets: (await Snippet.find({ author: req.session.auth }))
+          .map(snippet => ({
+            id: snippet._id,
+            createdAt: moment(snippet.createdAt).fromNow(),
+            name: snippet.name
+          }))
+          .sort((a, b) => a.value - b.value)
+      }
+
+      res.render('snippets/index', { viewData })
+    } catch (error) {
+      next(error)
     }
   }
 }

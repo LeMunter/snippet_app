@@ -23,3 +23,7 @@ router.post('/logout',
   (req, res, next) => authorize(req, res, next),
   (req, res, next) => controller.logoutPost(req, res, next)
 )
+router.get('/mysnippets',
+  (req, res, next) => authorize(req, res, next),
+  (req, res, next) => controller.mySnippets(req, res, next)
+)

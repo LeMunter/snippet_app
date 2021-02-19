@@ -17,5 +17,6 @@ router.use('/', mainRouter)
 router.use('/user', userRouter)
 router.use('/snippets', snippetRouter)
 
+console.log('hit')
 // Catch 404 (ALWAYS keep this as the last route).
 router.use('*', (req, res, next) => next(createError(404)))

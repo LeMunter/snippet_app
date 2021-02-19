@@ -80,16 +80,14 @@ const main = async () => {
 
   // Middleware to be executed before the routes.
   app.use((req, res, next) => {
+    // Pass the base URL to the views.
+    res.locals.baseURL = process.env.BASE_URL
+
     res.locals.isLoggedIn = req.session.loggedIn
 
     // Set csrf token value for for all views using csrf tokens.
     if (req.session.loggedIn) res.locals.csrfToken = req.session._csrf
 
-    next()
-  })
-
-  // Middleware to be executed before the routes.
-  app.use((req, res, next) => {
     // Flash messages - survives only a round trip.
     if (req.session.flash) {
       res.locals.flash = req.session.flash
@@ -100,7 +98,7 @@ const main = async () => {
   })
 
   // Register routes.
-  app.use('/', router)
+  app.use(process.env.BASE_URL, router)
 
   // Error handler.
   app.use(function (err, req, res, next) {
@@ -135,7 +133,7 @@ const main = async () => {
 
   // Starts the HTTP server listening for connections.
   app.listen(process.env.PORT, () => {
-    console.log(`Server running at http://localhost:${process.env.PORT}`)
+    console.log(`Server running at http://localhost:${process.env.PORT}${process.env.BASE_URL}`)
     console.log('Press Ctrl-C to terminate...')
   })
 }
