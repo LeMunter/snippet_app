@@ -8,7 +8,7 @@
 import { authorize, checkOwnerView, authorizeOwner } from '../config/authorizer.js'
 import express from 'express'
 import { SnippetController } from '../controllers/snippet-controller.js'
-import { validateId } from '../config/validator.js'
+import { csrfCheck, validateId } from '../config/validator.js'
 
 export const router = express.Router()
 
@@ -22,6 +22,7 @@ router.get('/new',
   (req, res, next) => authorize(req, res, next),
   (req, res, next) => controller.new(req, res, next))
 router.post('/create',
+  (req, res, next) => csrfCheck(req, res, next),
   (req, res, next) => authorize(req, res, next),
   (req, res, next) => controller.create(req, res, next))
 
@@ -38,6 +39,7 @@ router.get('/:id/edit',
   (req, res, next) => authorizeOwner(req, res, next),
   (req, res, next) => controller.edit(req, res, next))
 router.post('/:id/update',
+  (req, res, next) => csrfCheck(req, res, next),
   (req, res, next) => validateId(req, res, next),
   (req, res, next) => authorize(req, res, next),
   (req, res, next) => authorizeOwner(req, res, next),
@@ -48,6 +50,7 @@ router.get('/:id/confirm',
   (req, res, next) => authorizeOwner(req, res, next),
   (req, res, next) => controller.confirm(req, res, next))
 router.post('/:id/delete',
+  (req, res, next) => csrfCheck(req, res, next),
   (req, res, next) => validateId(req, res, next),
   (req, res, next) => authorize(req, res, next),
   (req, res, next) => authorizeOwner(req, res, next),

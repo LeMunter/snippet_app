@@ -62,6 +62,7 @@ export class SnippetController {
         nameValue: undefined,
         codeValue: undefined
       }
+
       res.render('snippets/new', { viewData })
     } catch (error) {
       next(error)

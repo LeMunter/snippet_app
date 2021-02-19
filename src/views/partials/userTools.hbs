@@ -8,6 +8,7 @@
   <a class="nav-link" href="/snippets/new">New Snippet</a>
 </li>
 <form action="/user/logout" method="post">
+  {{>csrf}}
   <input type="submit" class="btn btn-outline-danger my-2 my-sm-0" name="Logout" value="Logout" />
 </form>
 {{else}}

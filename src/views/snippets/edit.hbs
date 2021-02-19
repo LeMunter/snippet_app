@@ -3,6 +3,7 @@
 </h1>
 
 <form method="post" action="./update">
+  {{>csrf}}
   {{>validationSummary}}
   <div class="form-group">
     <input type="string" class="form-control" name="nameValue"  placeholder="Snippet name" required="required" autofocus="autofocus" value="{{viewData.name}}">

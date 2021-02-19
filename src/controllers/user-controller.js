@@ -1,4 +1,6 @@
 import { User } from '../models/user.js'
+import bcrypt from 'bcrypt'
+
 /**
  * User controller.
  *
@@ -93,9 +95,11 @@ export class UserController {
   async loginPost (req, res) {
     try {
       const user = await User.authenticate(req.body.userName, req.body.password)
+      const csrfToken = await bcrypt.hash(user._id.toString(), 8)
       req.session.regenerate(() => {
         req.session.auth = user._id
         req.session.loggedIn = true
+        req.session._csrf = csrfToken
         req.session.flash = { type: 'success', text: 'Login was successful.' }
         res.redirect('/')
       })

@@ -3,5 +3,6 @@
   <input formaction=".." type="submit" class="btn btn-warning my-2 my-sm-0" value="Cancel" />
 </form>
 <form method="post">
+  {{>csrf}}
   <input formaction="./delete" type="submit" class="btn btn-danger my-2 my-sm-0" name="{{viewData._id}}" value="Delete"/>
 </form>
