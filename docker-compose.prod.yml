@@ -2,7 +2,6 @@ version: "3.9"
 services:
   web:
     container_name: node-app
-    image: lemunter/1dv023_node:latest
     build:
       context: .
       target: production
