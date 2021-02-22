@@ -14,6 +14,7 @@ import { dirname, join } from 'path'
 import { fileURLToPath } from 'url'
 import { router } from './routes/router.js'
 import session from 'express-session'
+import MemoryStore from 'memorystore'
 import helmet from 'helmet'
 
 /**
@@ -68,7 +69,10 @@ const main = async () => {
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24, // 1 day
       sameSite: 'lax'
-    }
+    },
+    store: new MemoryStore({
+      checkPeriod: 86400000 // prune expired entries every 24h
+    })
   }
 
   if (app.get('env') === 'production') {
