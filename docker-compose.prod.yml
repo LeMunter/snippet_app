@@ -55,6 +55,8 @@ services:
     ports:
       - "6379:6379"
     image: 'redis'
+    networks:
+      - app-network
 
 volumes:
   mongodb_data:
