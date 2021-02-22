@@ -15,7 +15,7 @@ import { fileURLToPath } from 'url'
 import { router } from './routes/router.js'
 import session from 'express-session'
 import helmet from 'helmet'
-import { redisStore } from './config/redis.js'
+import { redisStore } from './config/redisStore.js'
 
 /**
  * The main function of the application.

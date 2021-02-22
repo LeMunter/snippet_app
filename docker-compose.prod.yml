@@ -13,13 +13,8 @@ services:
       - mongo
     depends_on:
       - mongo
-    environment:
-      - 'NODE_ENV=production'
-      - 'DB_CONNECTION_STRING=mongodb://mongo:27017/mongodb'
-      - 'PORT=8080'
-      - 'SESSION_NAME=horsesession'
-      - 'SESSION_SECRET=horsepizza'
-      - 'BASE_URL=/snippets-app/'
+    env_file:
+    - web-variables.env
     networks:
       - app-network
     volumes:
