@@ -1,0 +1,86 @@
+version: "3.9"
+services:
+  web:
+    container_name: node-app
+    image: lemunter/1dv023_node:latest
+    build:
+      context: .
+      target: dev
+    command: npm run start:dev
+    ports:
+      - "8080:8080"
+    links:
+      - mongo
+    depends_on:
+      - mongo
+    environment:
+      - 'NODE_ENV=development'
+      - 'DB_CONNECTION_STRING=mongodb://mongo:27017/mongodb'
+      - 'PORT=8080'
+      - 'SESSION_NAME=horsesession'
+      - 'SESSION_SECRET=horsepizza'
+      - 'BASE_URL=/snippets-app/'
+    networks:
+      - app-network
+    volumes:
+      - ~/node_app/web-root/snippet-app/:/app
+  
+  mongo:
+    image: lemunter/1dv023_mongodb:latest
+    container_name: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - ~/node_app/mongoDB/database:/data/db
+    networks:
+      - app-network
+
+  proxy:
+    image: nginx:mainline-alpine
+    container_name: proxy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ~/node_app/web-root:/var/www/html
+      - ~/node_app/nginx-conf:/etc/nginx/conf.d
+      - ~/node_app/certbot-etc:/etc/letsencrypt
+      - ~/node_app/certbot-var:/var/lib/letsencrypt
+      - ~/node_app/dhparam:/etc/ssl/certs
+    depends_on:
+      - web
+    networks:
+      - app-network
+
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - ~/node_app/certbot-etc:/etc/letsencrypt
+      - ~/node_app/certbot-var:/var/lib/letsencrypt
+      - ~/node_app/web-root:/var/www/html
+    depends_on:
+      - proxy
+    command: certonly --webroot --webroot-path=/var/www/html --email am223yd@student.lnu.se --agree-tos --no-eff-email --force-renewal -d cscloud8-181.lnu.se
+
+volumes:
+  mongodb_data:
+  certbot-etc:
+  certbot-var:
+  web-root:
+    driver: local
+    driver_opts:
+      type: none
+      device: ~/node_app/views/
+      o: bind
+  dhparam:
+    driver: local
+    driver_opts:
+      type: none
+      device: ~/node_app/dhparam/
+      o: bind
+
+networks:
+  app-network:
+    driver: bridge
