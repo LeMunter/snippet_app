@@ -25,8 +25,8 @@ export const authorize = async (req, res, next) => {
  */
 export const authorizeOwner = async (req, res, next) => {
   const snippet = await Snippet.findOne({ _id: req.params.id }).lean()
+  console.log(req.session.key.auth)
   if (snippet.author !== req.session.auth) {
-    console.log('fast')
     return next(createError(403))
   }
 
@@ -41,7 +41,6 @@ export const authorizeOwner = async (req, res, next) => {
  * @param {Function} next - Express next middleware function.
  */
 export const checkOwnerView = async (req, res, next) => {
-  console.log(req.params.id)
   if (req.session.loggedIn) {
     const snippet = await Snippet.findOne({ _id: req.params.id }).lean()
     res.locals.isOwner = snippet.author === req.session.auth

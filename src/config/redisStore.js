@@ -8,7 +8,7 @@ export const redisStore = async (session) => {
   const RedisStore = connectRedis(session)
   // Configure redis client
   const redisClient = redis.createClient({
-    host: 'redis',
+    host: process.env.REDIS_CON,
     port: 6379
   })
 
