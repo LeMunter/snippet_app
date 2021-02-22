@@ -64,7 +64,6 @@ const main = async () => {
     secret: process.env.SESSION_SECRET,
     resave: false, // Resave even if a request is not changing the session.
     saveUninitialized: false, // Don't save a created but not modified session.
-    prev_path: '/',
     cookie: {
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24, // 1 day
@@ -88,7 +87,6 @@ const main = async () => {
     res.locals.baseURL = process.env.BASE_URL
 
     res.locals.isLoggedIn = req.session.loggedIn
-    console.log(req.path)
 
     // Set csrf token value for for all views using csrf tokens.
     if (req.session.loggedIn) res.locals.csrfToken = req.session._csrf
@@ -104,7 +102,7 @@ const main = async () => {
   // app.set('base', '/snippets-app')
 
   // Register routes.
-  app.use('/snippets-app', router)
+  app.use('/', router)
 
   // Error handler.
   app.use(function (err, req, res, next) {

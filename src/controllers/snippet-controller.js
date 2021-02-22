@@ -105,7 +105,6 @@ export class SnippetController {
    * @param {Function} next - Express next middleware function.
    */
   async edit (req, res, next) {
-    console.log(req.params.id)
     try {
       const viewData = await (await Snippet.findOne({ _id: req.params.id }).orFail()).toObject()
 
@@ -176,7 +175,6 @@ export class SnippetController {
   async delete (req, res) {
     try {
       await Snippet.deleteOne({ _id: req.params.id })
-      console.log('snipp')
       req.session.flash = { type: 'success', text: 'The snippet was successfully deleted.' }
       res.redirect(process.env.BASE_URL)
     } catch (error) {

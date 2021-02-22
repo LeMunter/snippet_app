@@ -18,23 +18,6 @@ export class UserController {
    * @param {Function} next - Express next middleware function.
    */
   async register (req, res, next) {
-  //   const user = new User({
-  //     username: 'anton12',
-  //     password: 'abcdefghijk',
-  //     snippets: []
-  //   })
-  //   await user.save()
-
-    //   console.log(user)
-
-    // const result = await User.updateOne({ username: 'anton12' }, {
-    //   $push: { snippets: '602e939d912f257020979851' }
-    // })
-
-    // const user = await User.findOne({ username: 'anton12' })
-    // console.log(result.nModified === 1)
-    // console.log(user)
-
     try {
       res.render('users/registration')
     } catch (error) {

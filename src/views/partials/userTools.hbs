@@ -2,20 +2,20 @@
 <li class="nav-item">
 </li>
 <li class="nav-item">
-  <a class="nav-link" href="user/mysnippets">My snippets</a>
+  <a class="nav-link" href="./user/mysnippets">My snippets</a>
 </li>
 <li class="nav-item">
-  <a class="nav-link" href="{{baseURL}}snippets/new">New Snippet</a>
+  <a class="nav-link" href="./snippets/new">New Snippet</a>
 </li>
-<form action="user/logout" method="post">
+<form action="./user/logout" method="post">
   {{>csrf}}
   <input type="submit" class="btn btn-outline-danger my-2 my-sm-0" name="Logout" value="Logout" />
 </form>
 {{else}}
 <li class="nav-item">
-  <a class="nav-link" href="user/login">Login</a>
+  <a class="nav-link" href="./user/login">Login</a>
 </li>
 <li class="nav-item">
-  <a class="nav-link" href="user/register">Register</a>
+  <a class="nav-link" href="./user/register">Register</a>
 </li>
 {{/if}}
