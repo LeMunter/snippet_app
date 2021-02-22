@@ -14,8 +14,8 @@ import { dirname, join } from 'path'
 import { fileURLToPath } from 'url'
 import { router } from './routes/router.js'
 import session from 'express-session'
-import MemoryStore from 'memorystore'
 import helmet from 'helmet'
+import { redisStore } from './config/redis.js'
 
 /**
  * The main function of the application.
@@ -65,14 +65,12 @@ const main = async () => {
     secret: process.env.SESSION_SECRET,
     resave: false, // Resave even if a request is not changing the session.
     saveUninitialized: false, // Don't save a created but not modified session.
+    store: await redisStore(session),
     cookie: {
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24, // 1 day
       sameSite: 'lax'
-    },
-    store: new MemoryStore({
-      checkPeriod: 86400000 // prune expired entries every 24h
-    })
+    }
   }
 
   if (app.get('env') === 'production') {
