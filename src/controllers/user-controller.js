@@ -103,7 +103,7 @@ export class UserController {
         req.session.loggedIn = true
         req.session._csrf = csrfToken
         req.session.flash = { type: 'success', text: 'Login was successful.' }
-        res.redirect('/')
+        res.redirect(process.env.BASE_URL)
       })
     } catch (error) {
       // If an error, or validation error, occurred, view the form and an error message.
@@ -123,7 +123,7 @@ export class UserController {
   async logoutPost (req, res) {
     try {
       req.session.destroy(() => {
-        res.redirect('/')
+        res.redirect(process.env.BASE_URL)
       })
     } catch (error) {
       // If an error, or validation error, occurred, view the form and an error message.

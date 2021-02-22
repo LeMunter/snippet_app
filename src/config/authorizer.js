@@ -41,6 +41,7 @@ export const authorizeOwner = async (req, res, next) => {
  * @param {Function} next - Express next middleware function.
  */
 export const checkOwnerView = async (req, res, next) => {
+  console.log(req.params.id)
   if (req.session.loggedIn) {
     const snippet = await Snippet.findOne({ _id: req.params.id }).lean()
     res.locals.isOwner = snippet.author === req.session.auth

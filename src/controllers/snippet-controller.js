@@ -176,11 +176,11 @@ export class SnippetController {
   async delete (req, res) {
     try {
       await Snippet.deleteOne({ _id: req.params.id })
-
+      console.log('snipp')
       req.session.flash = { type: 'success', text: 'The snippet was successfully deleted.' }
-      res.redirect('..')
+      res.redirect(process.env.BASE_URL)
     } catch (error) {
-      res.redirect('..')
+      res.redirect(process.env.BASE_URL)
     }
   }
 }

@@ -13,7 +13,6 @@ export class MainController {
    * @param {Function} next - Express next middleware function.
    */
   async index (req, res, next) {
-    console.log('index')
     res.render('main')
   }
 }

@@ -2,7 +2,7 @@
   <span class="far fa-plus-square"></span> New Snippet
 </h1>
 
-<form method="post" action="./create">
+<form method="post" action="{{baseURL}}snippets/create">
   {{>csrf}}
   {{>validationSummary}}
   <div class="form-group">
