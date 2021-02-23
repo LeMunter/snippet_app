@@ -85,6 +85,7 @@ export class UserController {
         req.session.auth = user._id
         req.session.loggedIn = true
         req.session._csrf = csrfToken
+        console.log('---------------------------------------------' + req.session.auth)
         req.session.flash = { type: 'success', text: 'Login was successful.' }
         res.redirect(process.env.BASE_URL)
       })

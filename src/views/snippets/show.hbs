@@ -9,7 +9,7 @@
 </dl>
 {{#if isOwner}}
 <form method="get">
-  <input formaction="{{currentPath}}/edit" type="submit" class="btn btn-outline-warning my-2 my-sm-0" name="{{viewData._id}}" value="Edit" />
-  <input formaction="{{currentPath}}/confirm" type="submit" class="btn btn-outline-danger my-2 my-sm-0" name="{{viewData._id}}" value="Delete"/>
+  <input formaction="./snippets/{{viewData._id}}/edit" type="submit" class="btn btn-outline-warning my-2 my-sm-0" value="Edit" />
+  <input formaction="./snippets/{{viewData._id}}/confirm" type="submit" class="btn btn-outline-danger my-2 my-sm-0" value="Delete"/>
 </form>
 {{/if}}

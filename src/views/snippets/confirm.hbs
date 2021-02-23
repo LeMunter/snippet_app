@@ -4,5 +4,5 @@
 </form>
 <form method="post">
   {{>csrf}}
-  <input formaction="{{currentPath}}/delete" type="submit" class="btn btn-danger my-2 my-sm-0" name="{{viewData._id}}" value="Delete"/>
+  <input formaction="./snippets/{{viewData._id}}/confirm/delete" type="submit" class="btn btn-danger my-2 my-sm-0" value="Delete"/>
 </form>

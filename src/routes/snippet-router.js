@@ -33,6 +33,11 @@ router.get('/:id',
   (req, res, next) => controller.show(req, res, next))
 
 //   Requests private to the owner of the snippet.
+router.get('/:id/confirm',
+  (req, res, next) => validateId(req, res, next),
+  (req, res, next) => authorize(req, res, next),  
+  (req, res, next) => authorizeOwner(req, res, next),
+  (req, res, next) => controller.confirm(req, res, next))
 router.get('/:id/edit',
   (req, res, next) => validateId(req, res, next),
   (req, res, next) => authorize(req, res, next),
@@ -44,11 +49,6 @@ router.post('/:id/edit/update',
   (req, res, next) => authorize(req, res, next),
   (req, res, next) => authorizeOwner(req, res, next),
   (req, res, next) => controller.update(req, res, next))
-router.get('/:id/confirm',
-  (req, res, next) => validateId(req, res, next),
-  (req, res, next) => authorize(req, res, next),
-  (req, res, next) => authorizeOwner(req, res, next),
-  (req, res, next) => controller.confirm(req, res, next))
 router.post('/:id/confirm/delete',
   (req, res, next) => csrfCheck(req, res, next),
   (req, res, next) => validateId(req, res, next),

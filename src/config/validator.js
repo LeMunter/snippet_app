@@ -9,6 +9,8 @@ import mongoose from 'mongoose'
  * @param {Function} next - Express next middleware function.
  */
 export const validateId = async (req, res, next) => {
+  console.log('-------------------------------')
+
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     return next(createError(404))
   }

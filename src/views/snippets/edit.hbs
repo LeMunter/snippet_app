@@ -2,7 +2,7 @@
   <span class="far fa-plus-square"></span> Edit Snippet
 </h1>
 
-<form method="post" action="{{currentPath}}/update">
+<form method="post" action="./snippets/{{viewData._id}}/edit/update">
   {{>csrf}}
   {{>validationSummary}}
   <div class="form-group">

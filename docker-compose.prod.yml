@@ -18,7 +18,6 @@ services:
       - app-network
     volumes:
       - ~/node_app/web-root/snippet-app/src:/app/src
-    restart: unless-stopped
   
   mongo:
     image: lemunter/1dv023_mongodb:latest
@@ -29,7 +28,6 @@ services:
       - ~/node_app/mongoDB/database:/data/db
     networks:
       - app-network
-    restart: unless-stopped
 
   proxy:
     image: nginx:mainline-alpine

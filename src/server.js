@@ -89,7 +89,6 @@ const main = async () => {
     res.locals.baseURL = process.env.BASE_URL
 
     res.locals.isLoggedIn = req.session.loggedIn
-
     // Set csrf token value for for all views using csrf tokens.
     if (req.session.loggedIn) res.locals.csrfToken = req.session._csrf
 

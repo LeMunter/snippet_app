@@ -9,7 +9,7 @@ COPY package*.json ./
 COPY . .
 
 FROM base as production
-RUN npm ci --only=production
+RUN npm install --only=production
 
 FROM base as dev
 RUN npm install

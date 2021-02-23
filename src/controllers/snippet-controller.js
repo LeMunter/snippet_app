@@ -157,6 +157,7 @@ export class SnippetController {
    */
   async confirm (req, res, next) {
     try {
+      console.log('--------------------------------------------------------------------------------------------')
       const viewData = await (await Snippet.findOne({ _id: req.params.id }).orFail()).toObject()
 
       res.render('snippets/confirm', { viewData })
@@ -166,7 +167,7 @@ export class SnippetController {
   }
 
   /**
-   * Display a snippet.
+   * Remove a snippet.
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.

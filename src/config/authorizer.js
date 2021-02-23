@@ -25,7 +25,6 @@ export const authorize = async (req, res, next) => {
  */
 export const authorizeOwner = async (req, res, next) => {
   const snippet = await Snippet.findOne({ _id: req.params.id }).lean()
-  console.log(req.session.key.auth)
   if (snippet.author !== req.session.auth) {
     return next(createError(403))
   }
