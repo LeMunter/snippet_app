@@ -35,7 +35,7 @@ router.get('/:id',
 //   Requests private to the owner of the snippet.
 router.get('/:id/confirm',
   (req, res, next) => validateId(req, res, next),
-  (req, res, next) => authorize(req, res, next),  
+  (req, res, next) => authorize(req, res, next),
   (req, res, next) => authorizeOwner(req, res, next),
   (req, res, next) => controller.confirm(req, res, next))
 router.get('/:id/edit',

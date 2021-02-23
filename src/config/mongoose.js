@@ -1,7 +1,16 @@
+/**
+ * Module for mongoose.
+ *
+ * @author Anton Munter
+ * @version 1.0.0
+ */
+
 import mongoose from 'mongoose'
 
 /**
+ * Connect to mongodb database.
  *
+ * @returns {object} - Mongodb object
  */
 export const connectDB = async () => {
   mongoose.connection.on('connected', () =>

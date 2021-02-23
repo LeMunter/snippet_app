@@ -1,5 +1,5 @@
 /**
- * Main router.
+ * User router.
  *
  * @author Anton Munter
  * @version 1.0.0

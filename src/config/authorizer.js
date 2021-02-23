@@ -1,8 +1,16 @@
+/**
+ * Module for authorizing functions.
+ *
+ * @author Anton Munter
+ * @version 1.0.0
+ */
+
 import createError from 'http-errors'
 import { Snippet } from '../models/snippet.js'
 
+// eslint-disable-next-line jsdoc/require-returns
 /**
- *
+ * Authorizes a user.
  *
  * @param {object} req - Express request object.
  * @param {object} res - Express response object.
@@ -16,8 +24,9 @@ export const authorize = async (req, res, next) => {
   next()
 }
 
+// eslint-disable-next-line jsdoc/require-returns
 /**
- *
+ * Authorizes a user as the owner of a snippet.
  *
  * @param {object} req - Express request object.
  * @param {object} res - Express response object.
@@ -33,7 +42,7 @@ export const authorizeOwner = async (req, res, next) => {
 }
 
 /**
- *
+ * Set owner view if user is the owner of a snippet.
  *
  * @param {object} req - Express request object.
  * @param {object} res - Express response object.

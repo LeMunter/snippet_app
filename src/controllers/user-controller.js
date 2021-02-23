@@ -1,3 +1,10 @@
+/**
+ * Module for a user controller.
+ *
+ * @author Anton Munter
+ * @version 1.0.0
+ */
+
 import { User } from '../models/user.js'
 import { Snippet } from '../models/snippet.js'
 import bcrypt from 'bcrypt'
@@ -5,9 +12,6 @@ import moment from 'moment'
 
 /**
  * User controller.
- *
- * @author Anton Munter
- * @version 1.0.0
  */
 export class UserController {
   /**

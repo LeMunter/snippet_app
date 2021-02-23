@@ -1,8 +1,18 @@
+/**
+ * Module for redis.
+ *
+ * @author Anton Munter
+ * @version 1.0.0
+ */
+
 import redis from 'redis'
 import connectRedis from 'connect-redis'
 
 /**
- * @param session
+ * Create redis object.
+ *
+ * @param {object} session - Session object.
+ * @returns {object} - Redis object.
  */
 export const redisStore = async (session) => {
   const RedisStore = connectRedis(session)

@@ -1,3 +1,9 @@
+/**
+ * Snippet schema.
+ *
+ * @author Anton Munter
+ * @version 1.0.0
+ */
 import mongoose from 'mongoose'
 
 const schema = new mongoose.Schema({

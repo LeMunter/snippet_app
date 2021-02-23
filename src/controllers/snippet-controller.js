@@ -1,11 +1,15 @@
+/**
+ * Module for a snippet controller.
+ *
+ * @author Anton Munter
+ * @version 1.0.0
+ */
+
 import { Snippet } from '../models/snippet.js'
 import moment from 'moment'
 
 /**
  * Snippet controller.
- *
- * @author Anton Munter
- * @version 1.0.0
  */
 export class SnippetController {
   /**
@@ -74,7 +78,6 @@ export class SnippetController {
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
-   * @param {Function} next - Express next middleware function.
    */
   async create (req, res) {
     try {
@@ -119,7 +122,6 @@ export class SnippetController {
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
-   * @param {Function} next - Express next middleware function.
    */
   async update (req, res) {
     try {
@@ -171,7 +173,6 @@ export class SnippetController {
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
-   * @param {Function} next - Express next middleware function.
    */
   async delete (req, res) {
     try {

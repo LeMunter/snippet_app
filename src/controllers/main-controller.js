@@ -1,8 +1,13 @@
 /**
- * Main controller.
+ * Module for a main controller.
  *
  * @author Anton Munter
  * @version 1.0.0
+ */
+
+/**
+ * Main controller.
+ *
  */
 export class MainController {
   /**

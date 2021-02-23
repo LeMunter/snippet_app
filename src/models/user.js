@@ -1,3 +1,10 @@
+/**
+ * User schema.
+ *
+ * @author Anton Munter
+ * @version 1.0.0
+ */
+
 import mongoose from 'mongoose'
 import bcrypt from 'bcrypt'
 
@@ -19,10 +26,11 @@ const schema = new mongoose.Schema({
   versionKey: false
 })
 
-// eslint-disable-next-line no-multiple-empty-lines
 /**
- * @param password
- * @param confirmPassword
+ * Check if passwords are matching.
+ *
+ * @param {string} password - Password.
+ * @param {string} confirmPassword - The confirmed password.
  */
 schema.statics.matchingPasswords = async function (password, confirmPassword) {
   if (password !== confirmPassword) {
@@ -30,10 +38,10 @@ schema.statics.matchingPasswords = async function (password, confirmPassword) {
   }
 }
 
-// eslint-disable-next-line no-multiple-empty-lines
 /**
- * @param username
- * @param password
+ * Check for duplicate user.
+ *
+ * @param {string} username - The username.
  */
 schema.statics.checkDuplicate = async function (username) {
   const users = await this.find({ username })
@@ -43,10 +51,12 @@ schema.statics.checkDuplicate = async function (username) {
   }
 }
 
-// eslint-disable-next-line no-multiple-empty-lines
 /**
- * @param username
- * @param password
+ * Authenticate password for a user.
+ *
+ * @param {string} username - The username.
+ * @param {string} password - The password.
+ * @returns {object} User.
  */
 schema.statics.authenticate = async function (username, password) {
   const user = await this.findOne({ username })
